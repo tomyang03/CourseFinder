@@ -1,0 +1,158 @@
+
+By using Mongoose, when we connect to MongoDB Atlass ie in server.js:
+
+mongoose.connect(
+    url,
+
+we don't need to specify the db connection again,
+we can just use the model ie shema:
+ie Course.createCourse
+
+If there are no documents, the model
+will create a table with the Model's name
+in MongoDB Atlass.
+
+Originally, the project was using sqlite3, 
+but we changed the DB to MongoDB to make it easier connect to the cloud. 
+we stripped out npm run seed.
+
+Prevent user from accidently accessing course page:
+http://localhost:3000/courses/636f0db6180d0624e41a2cc7
+by making it a PrivateRoute in App.js in src folder
+
+
+Malformed url passed from client causes server not able
+to receive req.params.id, notice the double quotes after update!"
+let url = `${SERVERURL}/courses/update/" + course._id`;
+let url = `${SERVERURL}/courses/update/` + course._id;
+
+Update is successful from server, but page redirects to the wrong page:
+props.history.push("${SERVERURL}/courses");
+Remove ${SERVERURL} in frontend route:
+props.history.push("/courses");
+
+ The babel version of client and root folder can have conflicts
+ due to different versisons, if that happens, delete package-lock.json and node_modules folder in the root directory
+ and run npm start in client, it should work.
+ Recreate node_modules folder before running netlify dev which runs npm run build
+ which needs node_modules folder.
+
+If you add the authenticateUser middleware for a route in the server,
+it means that only frontend calls which have proper authorization with headers
+will make it through. Make sure that frontend is setting the headers.
+
+" netlify
+Base directory does not exist: /opt/build/repo/test
+
+For base = "." : /opt/build/repo/
+
+"scripts": {
+    "start": "nodemon server.js",
+    "build": "netlify",
+    /* custom start srcipt, can be run using npm run ignite*/
+    "ignite": "netlify" 
+  },
+
+  Take whatever is posted on the remote repo 
+  netlify will grab whatever is published on  the latest main on github,
+  build the javascript and deploy it using the build commmand under
+  netlify.toml
+
+  [build]
+  command = "npm install && npm run build"  <--- this commmand runs from when you hit trigger deploy on netlify
+  functions = "functions"
+  publish = "build"
+
+"npm install && npm run build"
+
+this command will install dependencies and run the build script in package.json
+
+
+config.js:
+module.exports = {
+  url: process.env.ATLAS_URI,
+}
+
+search for "url" in server.js
+
+node will look into context of the \CourseFinder-Netlify to find a .env file and config.js
+which exports url with the mongodb url connection,
+if it cannot be found, then it cannot connect to db
+\CourseFinder-Netlify> node functions/server.js
+
+In package.json we specify the entry point of the app:
+Here the entry point is functions/server.js,
+the start command will run inside the functions folder and hence it can find
+the .env file located inside the functions folder
+  "main": "functions/server.js",
+
+However we are not using the start script,
+we are not running any server or nodemon 
+
+ "build": "netlify login && netlify build"
+
+ The package.json in the main repo folder,
+ was created using a node.js template,
+ it is the same one used under functions.
+
+The build commmand was added manually and 
+it has nothing to do with minimizing js or the frontend.
+
+The main repo is a node.js backend,
+and it should be started with "node server.js",
+but we don't have a server, we just connect to mongodb
+
+As long as the website is deployed it should run using npm run build:
+
+ie.
+
+"scripts": {
+    "start": "nodemon server.js",
+    "build": "npm install  &&  node server.js"
+  },
+
+  What does trigger deploy from netlify dashboard actually do?
+
+  how does netlify cli work with a global installation:
+
+  by default netlify-cli will use the configurations
+  specified under site configuration ==> build&deploy ==> Build Settings ==> Configure
+  for ie. you can set the location of functions folder to functions2.
+
+Netlify build will run whatever build command was specified under build settings in dashboard
+
+If the build command was npm run build, it will start the scripts in package.json under build
+scripts": {
+    "start": "nodemon server.js",
+    "build": "netlify login && netlify deploy --prod"
+  },
+
+  Publish directory contains the index.html file , static assets and all the 
+  minimized js code  and should be client/build
+
+  netlify.toml overrides the default build settings specified in the netlify dashboard.
+  if we have a netlify.toml file, it will not use the build settings from the dashboard anymore,
+  we can try this with "netlify build commmand" and see what it does.
+
+  the most important part, 
+  is that we redirect url from "/" to "/functions" in order to access netlify functions capabilities"
+with a netlify.toml file.
+
+  [[redirects]]
+from = "/*"
+to = "/.netlify/functions/server/:splat"
+status = 200
+
+The .env file for functions is only used in development on the localhost,
+however when we run npm run build on the frontend,
+the .env file  .env.production and .env.development are built into client/build
+
+When we use the command netlify deploy --prod, it will use the production flag,
+and hence .env.production in client/build will be invoked
+
+.env.production in client/build and client/src
+note that we need to prefix env variables in react with REACT_APP:
+
+# deploying on nellify
+REACT_APP_SERVERURL=
+SKIP_PREFLIGHT_CHECK=true

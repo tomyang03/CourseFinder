@@ -1,17 +1,19 @@
 {
   "name": "coursefinderapp",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "",
-  "main": "functions/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "build": ""
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "v21.2.0"
+    "node": "12.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
@@ -26,11 +28,8 @@
     "mongoose-validator": "^2.1.0",
     "mongoose-validators": "^0.1.0",
     "morgan": "^1.9.0",
-    "netlify-cli": "^17.7.0",
-    "nodemon": "^3.0.1",
     "promise.prototype.finally": "^3.1.0",
     "sequelize": "^5.21.5",
-    "sequelize-cli": "^5.5.1",
-    "serverless-http": "^3.1.0"
+    "sequelize-cli": "^5.5.1"
   }
 }

@@ -1,0 +1,10 @@
+[build]
+  command = "npm install"
+  functions = "functions"
+  publish = "client/build"
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/server/:splat"
+status = 200
+
