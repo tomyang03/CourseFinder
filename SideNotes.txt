@@ -156,3 +156,15 @@ note that we need to prefix env variables in react with REACT_APP:
 # deploying on nellify
 REACT_APP_SERVERURL=
 SKIP_PREFLIGHT_CHECK=true
+
+
+nodemon is used to see if we can connect to the mongodb Atlass db,
+we are not running any server , we are using serverless http and netlify functions
+to fullfill our requirements,
+once we install all the packages from package.json in the root folder of the project,
+the packages will be available for subfolders such as functions aswell.
+so we can test nodemon under functions folder with npm run start
+to see if we can connect to the mongodb db.
+
+We need to the .env file from the functions folder into the root path of the project,
+to make it available and to connect to the mongodb db.
